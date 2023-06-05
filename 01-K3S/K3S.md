@@ -1,30 +1,46 @@
-<h1 align = "center"> Instalação e Configuração do Cluster K3S </h1>
+# Instalação e Configuração do Cluster K3S
 
-<h3>Pré-Requisitos</h3>
+### Pré-Requisitos:
 
-* Curl
+- Sistema Atualizado
+- Utilitário Curl
 
-        sudo apt update && sudo apt install -y ca-certificates curl
+---
+### Atualizar o sistema e instalar o __curl__
 
-* Configuração DNS (Registro A e CNAME)
+```shell
+sudo apt update && sudo apt install -y ca-certificates curl
+```
 
-        SRV-K8S-MASTER        IN        A            <IP do Master 01>
-        SRV-K8S-MASTER        IN        A            <IP do Master XX>
-        SRV-K8S-DATABASE      IN        A            <IP do Database>
+### Instalação de Node Master 01
 
-        master                IN        CNAME        SRV-K8S-MASTER
-        database              IN        CNAME        SRV-K8S-DATABASE    
+```shell
+curl -sfL https://get.k3s.io |  sh -s - server --datastore-endpoint="mysql://<User>:<Password>@tcp(<IP ou hostname do servidor banco de dados>:<Port>)/<Name Database>" --node-taint CriticalAddonsOnly=true:NoExecute --disable traefik --disable servicelb --cluster-init
+```
 
-<h3> Node Master 01 </h3>
+- _--node-taint CriticalAddonsOnly=true:NoExecute_ - Permitirá um plano de controle dedicado, sem utilização de carga de usuário
+- _--disable traefik_ - Desabilitando o traefik interno padrão
+- _--disable servicelb_ - Desabilitando o loadbalancer interno padrão
+- _--cluster-init_ - Declaração para inicializar o cluster
 
-    curl -sfL https://get.k3s.io |  sh -s - server --datastore-endpoint = "<mysql|postgres>://<User>:<Password>@tcp(https://<IP ou hostname do database>:<Port>)/<Name Database> --node-taint CriticalAddonsOnly=true:NoExecute --disable traefik --disable servicelb --cluster-init
+### Localizar Token do Master Inicial
 
-<h3> Node Master XX </h3>
+```shell
+cat /var/lib/rancher/k3s/server/node-token
+```
 
-    curl -sfL https://get.k3s.io | K3S_TOKEN=<Token do Master> sh -s - server --server https://<IP ou hostname do Node Master>:6443
+### Node Master X
 
-<h3> Node Worker XX </h3>
+```shell
+curl -sfL https://get.k3s.io | sh -s - server   --token=SECRET --datastore-endpoint="mysql://<User>:<Password>@tcp(<IP ou hostname do servidor banco de dados>:<Port>)/<Name Database>"
+```
 
-    curl -sfL https://get.k3s.io | K3S_URL=https://<IP ou hostname do Node Master>:6443 K3S_TOKEN=<Token do Master> sh -
+### Node Worker X
 
-* Obs: Token do Master se localiza `/var/lib/rancher/k3s/server/node-token`
+```shell
+curl -sfL https://get.k3s.io | K3S_URL=https://<IP ou hostname do Node Master>:6443 K3S_TOKEN=<Token do Master> sh -
+```
+
+---
+
+Documentação Oficial do K3S bem [Aqui!](https://docs.k3s.io/)

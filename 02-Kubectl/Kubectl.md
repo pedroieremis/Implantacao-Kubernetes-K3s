@@ -1,43 +1,34 @@
-<h1 align = "center"> Instalação e Configuração Kubectl </h1>
+## Instalação e Configuração Kubectl
 
-<h2 align = "center"> Na máquina do administrador do Cluster </h2>
+### Pré-Requisitos
 
-<h2> Instalando Kubectl </h2>
+- Sistema Atualizado
+- Utilitário Curl
 
-<h3>Pré-Requisitos</h3>
+---
+### Atualizar o sistema e instalar o __curl__
 
-* Curl
-    
-        sudo apt update && sudo apt install -y ca-certificates curl
+```shell
+sudo apt update && sudo apt install -y ca-certificates curl
+```
 
-1 - Download da chave pública
+### Instalação a partir de Binário
 
-    sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+```shell
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+```
 
-2 - Adicionando kubectl no repositório 
+### Caso queira, verifique o checksum
 
-    echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```shell
+curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+```
 
-3 - Instalando o kubectl
+### Instalação propriamente dita
+```shell
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+```
 
-    sudo apt update && sudo apt install -y kubectl
+---
 
-<h2> Configurando Kubectl </h2>
-
-1 - Copiando a chave de acesso do cluster
-
-    scp -rp <Usuário da Máquina>@<IP ou Hostname do Master>:/etc/rancher/k3s/k3s.yaml .kube/config
-
-* Obs: Caso não exista a pasta `.kube` ou o arquivo `config`
-
-    * Criando a pasta `.kube`
-
-            sudo mkdir ~/.kube
-
-    * Criando arquivo `config`
-
-            sudo touch ~/.kube/config
-
-2 - Configurando a chave de acesso
-
-        sed -i 's,127.0.0.1,<IP ou Hostname do Node Master>,g' ~/.kube/config
+Documentação Oficial do Kubectl bem [Aqui!](https://kubernetes.io/docs/home/)
