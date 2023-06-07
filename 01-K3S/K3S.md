@@ -32,7 +32,7 @@ cat /var/lib/rancher/k3s/server/node-token
 ### Node Master X
 
 ```shell
-curl -sfL https://get.k3s.io | sh -s - server   --token=SECRET --datastore-endpoint="mysql://<User>:<Password>@tcp(<IP ou hostname do servidor banco de dados>:<Port>)/<Name Database>"
+curl -sfL https://get.k3s.io |  sh -s - server --datastore-endpoint="mysql://<User>:<Password>@tcp(<IP ou hostname do servidor banco de dados>:<Port>)/<Name Database>" --node-taint CriticalAddonsOnly=true:NoExecute --disable traefik --disable servicelb --cluster-init --token=SECRET
 ```
 
 ### Node Worker X
