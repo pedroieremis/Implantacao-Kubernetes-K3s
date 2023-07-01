@@ -8,6 +8,7 @@
 - Traefik
 - Longhorn
 - Let's Encrypt
+- Rancher (Adicional)
 
 Basta seguir os arquivos em Markdown em Ordem que tudo tende a dar certo!!
 

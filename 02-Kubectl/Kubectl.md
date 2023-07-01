@@ -91,4 +91,4 @@ sed -i "s/127.0.0.1/<IP-do-Node-Master-01>/g" ~/.kube/config
 
 ---
 
-Documentação Oficial do Kubectl bem [Aqui!](https://kubernetes.io/docs/home/)
+Documentação Oficial do Kubectl bem [Aqui!](https://kubernetes.io/docs/tasks/tools/
