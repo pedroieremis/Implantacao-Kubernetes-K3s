@@ -1,67 +1,87 @@
-<h1 align = "center"> Instalação e Configuração Cert-Manager </h1>
+## **Instalação e Configuração Cert-Manager - Máquina do(a) DevOps**
 
-<h2 align = "center"> Na máquina do administrador do Cluster </h2>
+### Instalando o Cert-Manager
 
-<h2> Instalando Cert-Manager </h2>
+### Adicionando Cert-Manager no repositório Helm
 
-1 - Adicionando Cert-Manager no repositório Helm
+```shell
+helm repo add jetstack https://charts.jetstack.io
+```
 
-    helm repo add jetstack https://charts.jetstack.io
+### Atualizando o repositório Helm
 
-2 - Atualizando o repositório Helm
+```shell
+helm repo update
+```
 
-    helm repo update
+### Instalando Cert-Manager
 
-3 - Instalando Cert-Manager
+```shell
+helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set installCRDs=true
+```
 
-    helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set installCRDs=true
+---
 
-<h2> Configurando Cert-Manager </h2>
+## **Configurando o Cert-Manager**
 
-1 - Criando arquivo `letsencrypt-staging.yml`
+### Criando arquivo `letsencrypt-staging.yml`
 
-    touch letsencrypt-staging.yml
+```shell
+touch letsencrypt-staging.yml
+```
 
-2 - Configurando o arquivo `letsencrypt-staging.yml`
+### Configurando o arquivo `letsencrypt-staging.yml`
 
-    apiVersion: cert-manager.io/v1
-    kind: Issuer
-    metadata:
-        name: letsencrypt-staging
-        namespace: cert-manager
-    spec:
-        acme:
-            server: https://acme-staging-v02.api.letsencrypt.org/directory
-            email: <email-address>
-            privateKeySecretRef:
-                name: letsencrypt-staging
-            solvers:
-            - http01:
-                ingress:
-                    name: traefik
+```shell
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+    name: letsencrypt-staging
+    namespace: cert-manager
+spec:
+    acme:
+        server: https://acme-staging-v02.api.letsencrypt.org/directory
+        email: <email-address>
+        privateKeySecretRef:
+            name: letsencrypt-staging
+        solvers:
+        - http01:
+            ingress:
+                name: traefik
+```
 
-3 - Criando arquivo `letsencrypt-production.yml`
+### Criando arquivo `letsencrypt-production.yml`
 
-    touch letsencrypt-production.yml
+```shell
+touch letsencrypt-production.yml
+```
 
-4 - Configurando o arquivo `letsencrypt-production.yml`
+### Configurando o arquivo `letsencrypt-production.yml`
 
-    apiVersion: cert-manager.io/v1
-    kind: Issuer
-    metadata:
-        name: letsencrypt-production
-        namespace: cert-manager
-    spec:
-        acme:
-            server: https://acme-v02.api.letsencrypt.org/directory
-            email: <email-address>
-            privateKeySecretRef:
-                name: letsencrypt-production
-            solvers:
-            - http01:
-                ingress:
-                    name: traefik
+```shell
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+    name: letsencrypt-production
+    namespace: cert-manager
+spec:
+    acme:
+        server: https://acme-v02.api.letsencrypt.org/directory
+        email: <email-address>
+        privateKeySecretRef:
+            name: letsencrypt-production
+        solvers:
+        - http01:
+            ingress:
+                name: traefik
+```
 
-5 - Aplicando configurações dos arquivos `letsencrypt-staging.yml` e `letsencrypt-production.yml`
+### Aplicando configurações dos arquivos `letsencrypt-staging.yml` e `letsencrypt-production.yml`
 
-    kubectl apply -f letsencrypt-staging.yml -f letsencrypt-production.yml
+```
+kubectl apply -f letsencrypt-staging.yml -f letsencrypt-production.yml
+```
+
+---
+
+Documentação Oficial do Cert-Manager: [Link](https://cert-manager.io/docs/)

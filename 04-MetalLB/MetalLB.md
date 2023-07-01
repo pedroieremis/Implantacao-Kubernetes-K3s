@@ -1,50 +1,68 @@
-<h1 align = "center"> Instalação e Configuração MetalLB </h1>
+## **Instalação e Configuração MetalLB - Máquina do(a) DevOps**
 
-<h2 align = "center"> Na máquina do administrador do Cluster </h2>
+### Adicionando repositório do MetalLB no Helm
 
-<h2> Instalando MetalLB </h2>
+```shell
+helm repo add metallb https://metallb.github.io/metallb
+```
 
-1 - Adicionando MetalLB no repositório Helm
+### Atualizando o repositório Helm
 
-    helm repo add metallb https://metallb.github.io/metallb
+```shell
+helm repo update
+```
 
-2 - Atualizando o repositório Helm
+### Instalando MetalLB
 
-    helm repo update
+```shell
+helm install metallb metallb/metallb --namespace metallb --create-namespace
+```
 
-3 - Instalando MetalLB
+---
 
-    helm install metallb metallb/metallb --namespace metallb --create-namespace
+## **Configurando MetalLB**
 
-<h2> Configurando MetalLB </h2>
+### Criando arquivo `metallb-pool.yml`
 
-1 - Criando arquivo `metallb-pool.yml`
+```shell
+touch metallb-pool.yml
+```
 
-    touch metallb-pool.yml
+### Configurando o arquivo `metallb-pool.yml`
 
-2 - Configurando o arquivo `metallb-pool.yml`
+```shell
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+    name: <Nome da configuração: Ex: metallb-pool>
+    namespace: metallb
+spec:
+    addresses:
+    - <Ranger de IPs. Ex: 192.168.0.1-192.168.0.10>
+```
 
-    apiVersion: metallb.io/v1beta1
-    kind: IPAddressPool
-    metadata:
-        name: <Nome da configuração: Ex: metallb-pool>
-        namespace: metallb
-    spec:
-        addresses:
-        - <Ranger de IPs. Ex: 192.168.0.1-192.168.0.10>
+### Criando arquivo `metallb-l2.yml`
 
-3 - Criando arquivo `metallb-l2.yml`
+```shell
+touch metallb-l2.yml
+```
 
-    touch metallb-l2.yml
+### Configurando o arquivo `metallb-l2.yml`
 
-4 - Configurando o arquivo `metallb-l2.yml`
+```shell
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+    name: <Nome da configuração: Ex: metallb-l2>
+    namespace: metallb
+```
 
-    apiVersion: metallb.io/v1beta1
-    kind: L2Advertisement
-    metadata:
-        name: <Nome da configuração: Ex: metallb-l2>
-        namespace: metallb
+### Aplicando configurações dos arquivos `metallb-pool.yml` e `metallb-l2.yml`
 
-5 - Aplicando configurações dos arquivos `metallb-pool.yml` e `metallb-l2.yml`
+```shell
+kubectl apply -f metallb-pool.yml -f metallb-l2.yml 
+```
 
-    kubectl apply -f metallb-pool.yml -f metallb-l2.yml 
+---
+
+Documentação Oficial do MetaLLB: [Link](https://metallb.universe.tf/)

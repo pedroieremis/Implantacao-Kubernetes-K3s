@@ -1,21 +1,36 @@
-<h1 align = "center"> Instalação Helm </h1>
+## **Instalação do Helm - Máquina do(a) DevOps**
 
-<h2 align = "center"> Na máquina do administrador do Cluster </h2>
+### Pré-Requisitos
 
-<h3>Pré-Requisitos</h3>
+- SO com cache atualizado
+- curl
+- ca-certificates
+- apt-transport-https
 
-* Curl
-    
-        sudo apt update && sudo apt install -y ca-certificates curl apt-transport-https --yes
+---
+### Atualizar o sistema e instalar os Pacotes
+```shell
+sudo apt update && sudo apt install ca-certificates curl apt-transport-https -y
+```
 
-1 - Download da chave pública
+### Download da chave pública do Helm
 
-    curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+```shell
+curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+```
 
-2 - Adicionando helm no repositório 
+### Adicionando o repositório do Helm
 
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+```shell
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+```
 
-3 - Instalando o helm
+### Instalando o Helm
 
-    sudo apt update && sudo apt install -y helm
+```shell
+sudo apt update && sudo apt install helm -y
+```
+
+---
+
+Documentação Oficial do Helm: [Link](https://helm.sh/docs/)

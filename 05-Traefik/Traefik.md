@@ -1,17 +1,23 @@
-<h1 align = "center"> Instalação Traefik </h1>
+## **Instalação Traefik - Máquina do(a) DevOps**
 
-<h2 align = "center"> Na máquina do administrador do Cluster </h2>
+### Adicionando Traefik no repositório Helm
 
-<h2> Instalando Traefik </h2>
+```shell
+helm repo add traefik https://helm.traefik.io/traefik
+```
 
-1 - Adicionando Traefik no repositório Helm
+### Atualizando o repositório Helm
 
-    helm repo add traefik https://helm.traefik.io/traefik
+```shell
+helm repo update
+```
 
-2 - Atualizando o repositório Helm
+### Instalando Traefik
 
-    helm repo update
+```shell
+helm install traefik traefik/traefik --namespace traefik --create-namespace
+```
 
-3 - Instalando Traefik
+---
 
-    helm install traefik traefik/traefik --namespace traefik --create-namespace
+Documentação Oficial do Traefik: [Link](https://doc.traefik.io/traefik/)

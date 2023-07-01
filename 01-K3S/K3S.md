@@ -1,21 +1,22 @@
-# Instalação e Configuração do Cluster K3S
+## **Instalação e Configuração do Cluster K3S - Máquinas do Cluster**
 
 ### Pré-Requisitos:
 
-- Sistema Atualizado
-- Utilitário Curl
+- SO com cache atualizado
+- curl
+- ca-certificates
 
 ---
-### Atualizar o sistema e instalar o __curl__
+### Atualizar o sistema e instalar os Pacotes
 
 ```shell
-sudo apt update && sudo apt install -y ca-certificates curl
+sudo apt update && sudo apt install ca-certificates curl -y
 ```
 
-### Instalação de Node Master 01
+### Instalação de **Node Master 01**
 
 ```shell
-curl -sfL https://get.k3s.io |  sh -s - server --datastore-endpoint="mysql://<User>:<Password>@tcp(<IP ou hostname do servidor banco de dados>:<Port>)/<Name Database>" --node-taint CriticalAddonsOnly=true:NoExecute --disable traefik --disable servicelb --cluster-init
+curl -sfL https://get.k3s.io |  sh -s - server --datastore-endpoint="mysql://<User>:<Password>@tcp(<IP ou hostname do servidor banco de dados>:3306)/<Name Database>" --node-taint CriticalAddonsOnly=true:NoExecute --disable traefik --disable servicelb --cluster-init
 ```
 
 - _--node-taint CriticalAddonsOnly=true:NoExecute_ - Permitirá um plano de controle dedicado, sem utilização de carga de usuário
@@ -23,19 +24,19 @@ curl -sfL https://get.k3s.io |  sh -s - server --datastore-endpoint="mysql://<Us
 - _--disable servicelb_ - Desabilitando o loadbalancer interno padrão
 - _--cluster-init_ - Declaração para inicializar o cluster
 
-### Localizar Token do Master Inicial
+### Obter o Token do **Node Master 01**
 
 ```shell
-cat /var/lib/rancher/k3s/server/node-token
+sudo cat /var/lib/rancher/k3s/server/node-token
 ```
 
-### Node Master X
+### Outros **Nodes Masters**
 
 ```shell
-curl -sfL https://get.k3s.io |  sh -s - server --datastore-endpoint="mysql://<User>:<Password>@tcp(<IP ou hostname do servidor banco de dados>:<Port>)/<Name Database>" --node-taint CriticalAddonsOnly=true:NoExecute --disable traefik --disable servicelb --cluster-init --token=SECRET
+curl -sfL https://get.k3s.io |  sh -s - server --datastore-endpoint="mysql://<User>:<Password>@tcp(<IP ou hostname do servidor banco de dados>:3306)/<Name Database>" --node-taint CriticalAddonsOnly=true:NoExecute --disable traefik --disable servicelb --cluster-init --token=SECRET
 ```
 
-### Node Worker X
+### **Nodes Workers**
 
 ```shell
 curl -sfL https://get.k3s.io | K3S_URL=https://<IP ou hostname do Node Master>:6443 K3S_TOKEN=<Token do Master> sh -
@@ -43,4 +44,4 @@ curl -sfL https://get.k3s.io | K3S_URL=https://<IP ou hostname do Node Master>:6
 
 ---
 
-Documentação Oficial do K3S bem [Aqui!](https://docs.k3s.io/)
+Documentação Oficial do K3S: [Link](https://docs.k3s.io/)

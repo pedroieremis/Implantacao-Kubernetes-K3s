@@ -1,23 +1,40 @@
-<h1 align = "center"> Instalação Longhorn </h1>
+## **Instalação e Configuração do Longhorn - Máquinas do Cluster**
 
-<h2 align = "center"> Nas máquinas do Cluster </h2>
 
-<h3>Instalando os Pré-Requisitos</h3>
-    
-    sudo apt update && sudo apt install -y open-iscsi nfs-common
+### Pré-Requisitos - Máquinas do Cluster
 
-<h2 align = "center"> Na máquina do administrador do Cluster </h2>
+- SO com cache atualizado
+- open-iscsi
+- nfs-common
 
-<h2> Instalando Longhorn </h2>
+### Atualizar o sistema e instalar os Pacotes
 
-1 - Adicionando Longhorn no repositório Helm
+```shell
+sudo apt update && sudo apt install -y open-iscsi nfs-common
+```
 
-    helm repo add longhorn https://charts.longhorn.io
+---
 
-2 - Atualizando o repositório Helm
+## **Instalando o Longhorn - Máquina do(a) DevOps**
 
-    helm repo update
+### Adicionando Longhorn no repositório Helm
 
-3 - Instalando Longhorn
+```shell
+helm repo add longhorn https://charts.longhorn.io
+```
 
-    helm install longhorn longhorn/longhorn --namespace longhorn --create-namespace --set persistence.reclaimPolicy=Retain
+### Atualizando o repositório Helm
+
+```shell
+helm repo update
+```
+
+### Instalando o Longhorn
+
+```
+helm install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace --set persistence.reclaimPolicy=Retain
+```
+
+---
+
+Documentação Oficial do Longhorn: [Link](https://longhorn.io/docs/1.4.2/)
