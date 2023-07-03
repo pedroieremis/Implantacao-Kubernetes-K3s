@@ -16,4 +16,4 @@ Basta seguir os arquivos em Markdown em Ordem que tudo tende a dar certo!!
 
 ---
 
-Repositório tomada como Base para este Repositório: [Link](https://github.com/rijkaardmelo/Cluster-K3S)
+Repositório tomado como Base para este Repositório: [Link](https://github.com/rijkaardmelo/Cluster-K3S) <- Rijkaard Melo
