@@ -25,7 +25,7 @@ helm install metallb metallb/metallb --namespace metallb --create-namespace
 ### Criando arquivo `metallb-pool.yml`
 
 ```shell
-touch metallb-pool.yml
+vim metallb-pool.yml
 ```
 
 ### Configurando o arquivo `metallb-pool.yml`
@@ -44,7 +44,7 @@ spec:
 ### Criando arquivo `metallb-l2.yml`
 
 ```shell
-touch metallb-l2.yml
+vim metallb-l2.yml
 ```
 
 ### Configurando o arquivo `metallb-l2.yml`

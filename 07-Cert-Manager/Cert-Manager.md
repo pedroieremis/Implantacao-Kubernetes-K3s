@@ -27,7 +27,7 @@ helm install cert-manager jetstack/cert-manager --namespace cert-manager --creat
 ### Criando arquivo `letsencrypt-staging.yml`
 
 ```shell
-touch letsencrypt-staging.yml
+vim letsencrypt-staging.yml
 ```
 
 ### Configurando o arquivo `letsencrypt-staging.yml`
@@ -53,7 +53,7 @@ spec:
 ### Criando arquivo `letsencrypt-production.yml`
 
 ```shell
-touch letsencrypt-production.yml
+vim letsencrypt-production.yml
 ```
 
 ### Configurando o arquivo `letsencrypt-production.yml`

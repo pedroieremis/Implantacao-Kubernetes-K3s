@@ -7,7 +7,7 @@
 - open-iscsi
 - nfs-common
 
-### Atualizar o sistema e instalar os Pacotes
+### Atualizar o sistema e instalar pacotes necessários
 
 ```shell
 sudo apt update && sudo apt install -y open-iscsi nfs-common

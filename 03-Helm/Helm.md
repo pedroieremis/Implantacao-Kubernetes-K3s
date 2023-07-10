@@ -8,7 +8,7 @@
 - apt-transport-https
 
 ---
-### Atualizar o sistema e instalar os Pacotes
+### Atualizar o sistema e instalar pacotes necessários
 ```shell
 sudo apt update && sudo apt install ca-certificates curl apt-transport-https -y
 ```

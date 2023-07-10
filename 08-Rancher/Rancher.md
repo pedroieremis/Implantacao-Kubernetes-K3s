@@ -17,13 +17,13 @@ sudo mkdir /dados-rancher
 cd /dados-rancher
 ```
 
-### Provisione o Rancher Single Node em Docker sem Certificado Valido
+### Provisione o Rancher Single Node em Docker sem certificado HTTPS valido
 
 ```shell
 sudo docker run -d --privileged -v ./rancher:/var/lib/rancher --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:stable
 ```
 
-### Provisione o Rancher Single Node em Docker com Certificado Valido usando Let's Encrypt (Necessário ter Domínio acessível a internet com este exemplo)
+### Provisione o Rancher Single Node em Docker com Certificado HTTPS Valido usando Let's Encrypt (Necessário ter Domínio acessível a internet com este exemplo)
 
 ```shell
 docker run -d -v ./rancher:/var/lib/rancher --privileged --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:stable --acme-domain <rancher.DOMINIO.COM.BR>
