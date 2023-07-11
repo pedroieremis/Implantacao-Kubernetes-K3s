@@ -34,7 +34,7 @@ vim letsencrypt-staging.yml
 
 ```shell
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
     name: letsencrypt-staging
     namespace: cert-manager
@@ -60,7 +60,7 @@ vim letsencrypt-production.yml
 
 ```shell
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
     name: letsencrypt-production
     namespace: cert-manager
